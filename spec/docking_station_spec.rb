@@ -13,6 +13,14 @@ end
   working_bike = bike.working?
   expect(bike).to be_truthy
     end
+  it 'sets user capacity when creating a dockingstation' do
+    station = DockingStation.new(50)
+    expect(station.capacity).to eq 50
+  end
+
+  it 'capacity is equal to Default Capacity if no argument is given' do
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+  end
 
 end
   describe '#release_bike' do
@@ -23,7 +31,7 @@ end
 
   describe '#dock' do 
     it 'raises error if dock is full' do
-      DockingStation::DEFAULT_CAPACITY.times {subject.dock(Bike.new)}
+      subject.capacity.times {subject.dock(Bike.new)}
       expect {subject.dock Bike.new}.to raise_error 'Dock is full'
     end
   end

@@ -27,6 +27,13 @@ end
     it 'raises an error when there are no bikes available' do
       expect {subject.release_bike}.to raise_error 'No bikes available'
     end
+
+    it 'not release a broken bike' do
+      subject.dock(Bike.new)
+      subject.dock(Bike.new,"broken")
+      expect(subject.release_bike.working?).to eq(true)
+    end
+
   end
 
   describe '#dock' do 
@@ -53,6 +60,11 @@ it 'checks if there is a bike docked' do
   station = DockingStation.new
   docked_bike = station.dock(bike)
   expect(docked_bike)
+end
+
+it 'docking a bike and report broken' do
+  subject.dock(Bike.new, "broken")
+  expect(subject.bikes[-1].working?).to eq false
 end
 
 # it "shows the condition of a bike as working or not" do

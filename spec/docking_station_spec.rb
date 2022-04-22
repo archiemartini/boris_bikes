@@ -23,7 +23,7 @@ end
 
   describe '#dock' do 
     it 'raises error if dock is full' do
-      subject.dock(Bike.new)
+      20.times {subject.dock(Bike.new)}
       expect {subject.dock Bike.new}.to raise_error 'Dock is full'
     end
   end
@@ -38,7 +38,7 @@ it 'is expected to respond to bike' do
 end
 it 'docks something' do
   bike = Bike.new
-  expect(subject.dock(bike)).to eq bike
+  expect(subject.dock(bike)).to eq [bike]
 end
 it 'checks if there is a bike docked' do
   bike = Bike.new
